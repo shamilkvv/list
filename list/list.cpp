@@ -5,6 +5,9 @@ template<typename T>
 class List
 {
 private:
+
+    //узел
+
     struct Node
     {
         T element;
@@ -18,11 +21,111 @@ private:
 
     int elementsCount = 0;
 
+
+public:
+    //добавление в конец
+
+    void PushBack(const T& elem)
+    {
+        Node* node = new Node(elem, last, nullptr);
+
+        if (last != nullptr)
+        {
+            last->next = node;
+        }
+
+        else
+        {
+            first = node;
+        }
+
+        last = node;
+        ++elementsCount;
+    }
+
+    //добавление в начало 
+
+    void PushFront(const T& elem)
+    {
+        Node* node = new Node(elem, first, nullptr);
+
+        if (first != nullptr)
+        {
+            first->prev = node;
+        }
+
+        else
+        {
+            last = node;
+        }
+
+        first = node;
+        ++elementsCount;
+
+    }
+
+    //удаление с конца
+
+    void PopBack()
+    {
+        if (last != nullptr)
+        {
+            Node* temp = last;
+            last = last->prev;
+
+            if (last != nullptr)
+            {
+                last->next = nullptr; 
+            }
+
+            else
+            {
+                first = nullptr;
+            }
+
+            delete temp;
+            elementsCount--;
+        }
+
+    }
+
+    //удаление с начала
+
+    void PopFront()
+    {
+        if (first != nullptr)
+        {
+            Node* temp = first;
+            first = first->next;
+
+            if (first != nullptr)
+            {
+                first->prev = nullptr;
+            }
+
+            else
+            {
+                last = nullptr;
+            }
+
+            delete temp;
+            elementsCount--;
+
+        }
+
+    }
+
+    //текущее кол-во элементов
+
+    size_t Size()const
+    {
+        return elementsCount;
+    }
 };
 
 int main()
 {
-    
 
+    
     return 0;
 }
