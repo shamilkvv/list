@@ -23,6 +23,19 @@ private:
 
 
 public:
+    List() {} // конструктор 
+
+    List(const List<T>& l) //конструктор копирования 
+    {
+        elementsCount = l.elementsCount;
+
+        for (Node* temp = l.first; temp != nullptr; temp = temp->next)
+        {
+            PushBack(temp->element);
+        }
+
+    }
+
     //добавление в конец
 
     void PushBack(const T& elem)
