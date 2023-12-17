@@ -6,9 +6,7 @@ class List
 {
 private:
 
-    //узел
-
-    struct Node
+    struct Node  //узлы
     {
         T element;
         Node* prev = nullptr;
@@ -19,7 +17,7 @@ private:
     Node* first = nullptr;
     Node* last = nullptr;
 
-    int elementsCount = 0;
+    size_t elementsCount = 0;
 
 
 public:
@@ -36,9 +34,7 @@ public:
 
     }
 
-    //добавление в конец
-
-    void PushBack(const T& elem)
+    void PushBack(const T& elem)   //добавление в конец
     {
         Node* node = new Node(elem, last, nullptr);
 
@@ -56,9 +52,9 @@ public:
         ++elementsCount;
     }
 
-    //добавление в начало 
+    
 
-    void PushFront(const T& elem)
+    void PushFront(const T& elem)   //добавление в начало 
     {
         Node* node = new Node(elem, first, nullptr);
 
@@ -77,9 +73,8 @@ public:
 
     }
 
-    //удаление с конца
-
-    void PopBack()
+   
+    void PopBack()   //удаление с конца
     {
         if (last != nullptr)
         {
@@ -102,9 +97,8 @@ public:
 
     }
 
-    //удаление с начала
 
-    void PopFront()
+    void PopFront()     //удаление с начала
     {
         if (first != nullptr)
         {
@@ -128,13 +122,56 @@ public:
 
     }
 
-    //текущее кол-во элементов
 
-    size_t Size()const
+    size_t Size()const      //текущее кол-во элементов
     {
         return elementsCount;
     }
+
+    
+
+    void clear()    // метод для очищения списка
+    {
+        while (elementsCount > 0)
+        {
+            PopBack();
+        }
+    }
+
+    List& operator= (const List& l)     // оператор присваивания
+    {
+        clear();
+
+        Node* node;
+        for (node = l.first; node != nullptr; node = node->next)
+        {
+            PushBack(node->element);
+        }
+
+        elementsCount = l.elementsCount;
+
+        return *this;
+    }
+
+    const T& Front()const
+    {
+        return first->element;
+    }
+
+
+    bool Empty()const
+    {
+        return first == nullptr;
+    }
+
+    ~List()
+    {
+        clear();
+    }
 };
+
+    
+
 
 int main()
 {
